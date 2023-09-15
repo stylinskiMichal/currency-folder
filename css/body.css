@@ -1,0 +1,14 @@
+.body {
+   
+    overflow: auto;
+    background-image: url("../images/Background_2.JPG");
+    
+    background-size: cover;
+    
+    background-repeat:repeat;
+   /* background-color: #ccc;
+    background-size: contain;
+    background-position: center;
+    background-attachment: fixed;
+*/
+}
