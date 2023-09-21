@@ -14,34 +14,57 @@ formElement.addEventListener("submit", (event) => {
     walutaElement.innerText = waluta;
 })*/
 
-let zlotyElement = document.querySelector(".js-zloty");
-let currencyElement = document.querySelector(".js-currency");
-let resultElement = document.querySelector(".js-result");
-let formElement = document.querySelector(".js-form");
 
-let rateEUR = 4.64;
-let rateUSD = 4.36;
-let rateGBP = 5.41;
+{
+    const calculateResult = (zloty, currency) => {
+        const rateEUR = 4.64;
+        const rateUSD = 4.36;
+        const rateGBP = 5.41;
 
-formElement.addEventListener("submit", (event) => {
-    event.preventDefault();
+        switch (currency) {
+            case "EUR":
+                return zloty / rateEUR;
 
-    let zloty = +zlotyElement.value;
-    let currency = currencyElement.value;
-    let result;
 
-    switch (currency) {
-        case "EUR":
-            result = zloty / rateEUR;
-            break;
+            case "USD":
+                return zloty / rateUSD;
 
-        case "USD":
-            result = zloty / rateUSD;
-            break;
             case "GBP":
-                result = zloty / rateGBP;
-                break;
+                return zloty / rateGBP;
 
+        }
+    };
+
+    const updateResultText = (zloty, result, currency) => {
+        const resultElement = document.querySelector(".js-result");
+        resultElement.innerHTML = `${zloty.toFixed(2)} PLN = <strong>${result.toFixed(2)} ${currency}</strong>`;
     }
-    resultElement.innerHTML = `${zloty.toFixed(2)} PLN = <strong>${result.toFixed(2)} ${currency}</strong>`;
-})
+
+
+    const onFormSubmit = (event) => {
+        event.preventDefault();
+
+        const zlotyElement = document.querySelector(".js-zloty");
+        const currencyElement = document.querySelector(".js-currency");
+
+
+
+        const zloty = +zlotyElement.value;
+        const currency = currencyElement.value;
+
+        let result = calculateResult(zloty, currency);
+
+        updateResultText(zloty, result, currency);
+    };
+
+
+    const init = () => {
+        const formElement = document.querySelector(".js-form");
+
+        formElement.addEventListener("submit", onFormSubmit);
+    };
+
+    init();
+
+}
+
